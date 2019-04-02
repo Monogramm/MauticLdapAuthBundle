@@ -112,7 +112,7 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
         if ($ssl) {
             if (substr($hostname, 0, 7) === 'ldap://') {
                 $hostname = str_replace('ldap://', 'ldaps://', $hostname);
-            } elseif (!substr($hostname, 0, 8) !== 'ldaps://') {
+            } elseif (substr($hostname, 0, 8) !== 'ldaps://') {
                 $hostname = 'ldaps://' . $hostname;
             }
         }
