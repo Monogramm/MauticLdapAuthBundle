@@ -40,7 +40,7 @@ class UserSubscriber implements EventSubscriberInterface
     /**
      * @return array
      */
-    static public function getSubscribedEvents()
+    public static function getSubscribedEvents()
     {
         return array(
             UserEvents::USER_FORM_AUTHENTICATION => array('onUserFormAuthentication', 0),
@@ -62,7 +62,8 @@ class UserSubscriber implements EventSubscriberInterface
         $integration = null;
         $result = false;
         if ($authenticatingService = $event->getAuthenticatingService()) {
-            if (in_array($authenticatingService, $this->supportedServices) && $integration = $event->getIntegration($authenticatingService)) {
+            if (in_array($authenticatingService, $this->supportedServices)
+                && $integration = $event->getIntegration($authenticatingService)) {
                 $result = $this->authenticateService($integration, $username, $password);
             }
         } else {
@@ -101,7 +102,7 @@ class UserSubscriber implements EventSubscriberInterface
             //'bind_dn'       => $this->parametersHelper->getParameter('ldap_auth_bind_dn'),
             //'bind_passwd'   => $this->parametersHelper->getParameter('ldap_auth_bind_passwd'),
             'base_dn'       => $this->parametersHelper->getParameter('ldap_auth_base_dn'),
-            'user_query'    => $this->parametersHelper->getParameter('ldap_auth_user_query', '(objectclass=inetOrgPerson)'),
+            'user_query'    => $this->parametersHelper->getParameter('ldap_auth_user_query', ''),
             'user_key'      => $this->parametersHelper->getParameter('ldap_auth_username_attribute', 'uid'),
             'user_email'    => $this->parametersHelper->getParameter('ldap_auth_email_attribute', 'mail'),
             'user_firstname'=> $this->parametersHelper->getParameter('ldap_auth_firstname_attribute', 'givenName'),

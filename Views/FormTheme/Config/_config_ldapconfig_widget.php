@@ -11,13 +11,17 @@ $fields    = $form->children;
 $fieldKeys = array_keys($fields);
 ?>
 
-<?php if (count(array_intersect($fieldKeys, ['ldap_auth_username_attribute', 'ldap_auth_username_attribute']))): ?>
+<?php if (count(array_intersect($fieldKeys, ['ldap_auth_username_attribute', 'ldap_auth_username_attribute']))) : ?>
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title"><?php echo $view['translator']->trans('mautic.integration.sso.ldapauth.config.header.ldap'); ?></h3>
+            <h3 class="panel-title"><?php
+                echo $view['translator']->trans('mautic.integration.sso.ldapauth.config.header.ldap');
+            ?></h3>
         </div>
         <div class="panel-body">
-            <div class="alert alert-info"><?php echo $view['translator']->trans('mautic.integration.sso.ldapauth.config.form.ldap_info'); ?></div>
+            <div class="alert alert-info"><?php
+                echo $view['translator']->trans('mautic.integration.sso.ldapauth.config.form.ldap_info');
+            ?></div>
             <div class="row">
                 <div class="col-md-6">
                     <?php echo $view['form']->row($fields['ldap_auth_host']); ?>
@@ -43,7 +47,9 @@ $fieldKeys = array_keys($fields);
             </div>
             <hr />
 
-            <div class="alert alert-info"><?php echo $view['translator']->trans('mautic.integration.sso.ldapauth.config.form.ldap_filters'); ?></div>
+            <div class="alert alert-info"><?php
+                echo $view['translator']->trans('mautic.integration.sso.ldapauth.config.form.ldap_filters');
+            ?></div>
             <div class="row">
                 <div class="col-md-6">
                     <?php echo $view['form']->row($fields['ldap_auth_base_dn']); ?>
@@ -54,7 +60,9 @@ $fieldKeys = array_keys($fields);
             </div>
             <hr />
 
-            <div class="alert alert-info"><?php echo $view['translator']->trans('mautic.integration.sso.ldapauth.config.form.ldap_attributes'); ?></div>
+            <div class="alert alert-info"><?php
+                echo $view['translator']->trans('mautic.integration.sso.ldapauth.config.form.ldap_attributes');
+            ?></div>
             <div class="row">
                 <div class="col-md-6">
                     <?php echo $view['form']->row($fields['ldap_auth_username_attribute']); ?>

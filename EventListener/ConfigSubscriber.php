@@ -36,13 +36,13 @@ class ConfigSubscriber extends CommonSubscriber
     public function onConfigGenerate(ConfigBuilderEvent $event)
     {
         $event->addForm(
-                [
-                    'bundle'     => 'MauticLdapAuthBundle',
-                    'formAlias'  => 'ldapconfig',
-                    'formTheme'  => 'MauticLdapAuthBundle:FormTheme\Config',
-                    'parameters' => $event->getParametersFromConfig('MauticLdapAuthBundle'),
-                ]
-            );
+            [
+                'bundle'     => 'MauticLdapAuthBundle',
+                'formAlias'  => 'ldapconfig',
+                'formTheme'  => 'MauticLdapAuthBundle:FormTheme\Config',
+                'parameters' => $event->getParametersFromConfig('MauticLdapAuthBundle'),
+            ]
+        );
     }
 
     /**

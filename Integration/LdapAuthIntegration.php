@@ -90,9 +90,15 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
     {
         $hostname = $settings['hostname'];
         $port = isset($settings['port']) ? (int) $settings['port'] : 389;
-        $ssl = isset($settings['ssl']) && !empty($settings['ssl']) ? (bool) $settings['ssl'] : false;
-        $startTls = isset($settings['starttls']) && !empty($settings['starttls']) ? (bool) $settings['starttls'] : false;
-        $ldapVersion = isset($settings['version']) && !empty($settings['version']) ? (int) $settings['version'] : 3;
+        $ssl = isset($settings['ssl']) && !empty($settings['ssl']) ?
+            (bool) $settings['ssl'] :
+            false;
+        $startTls = isset($settings['starttls']) && !empty($settings['starttls']) ?
+            (bool) $settings['starttls'] :
+            false;
+        $ldapVersion = isset($settings['version']) && !empty($settings['version']) ?
+            (int) $settings['version'] :
+            3;
         $base_dn = $settings['base_dn'];
 
         if (substr($hostname, 0, 8) === 'ldaps://') {
@@ -118,8 +124,6 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
 
         $login = $parameters['login'];
         if (!empty($hostname) && !empty($login)) {
-
-            // Symfony LDAP Client Auth
             $ldap = new LdapClient($hostname, $port, $ldapVersion, $ssl, $startTls);
 
             try {
@@ -140,7 +144,8 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
                 $response = array(
                     'errors' => array(
                         $this->factory->getTranslator()->trans(
-                            'mautic.integration.sso.ldapauth.error.authentication_issue', [],
+                            'mautic.integration.sso.ldapauth.error.authentication_issue',
+                            [],
                             'flashes'
                         ),
                         $e->getMessage()
@@ -180,7 +185,8 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
         $error = $this->getErrorsFromResponse($data);
         if (empty($error)) {
             $error = $this->factory->getTranslator()->trans(
-                'mautic.integration.error.genericerror', [],
+                'mautic.integration.error.genericerror',
+                [],
                 'flashes'
             );
         }
@@ -278,7 +284,8 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
     public function appendToForm(&$builder, $data, $formArea)
     {
         if ($formArea == 'features') {
-            $builder->add('auth_fallback',
+            $builder->add(
+                'auth_fallback',
                 'yesno_button_group',
                 [
                     'label' => 'mautic.integration.sso.ldapauth.auth_fallback',
@@ -289,7 +296,8 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
                 ]
             );
 
-            $builder->add('auto_create_user',
+            $builder->add(
+                'auto_create_user',
                 'yesno_button_group',
                 [
                     'label' => 'mautic.integration.sso.auto_create_user',
