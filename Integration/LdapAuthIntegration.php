@@ -91,14 +91,11 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
         $hostname = $settings['hostname'];
         $port = isset($settings['port']) ? (int) $settings['port'] : 389;
         $ssl = isset($settings['ssl']) && !empty($settings['ssl']) ?
-            (bool) $settings['ssl'] :
-            false;
+            (bool) $settings['ssl'] : false;
         $startTls = isset($settings['starttls']) && !empty($settings['starttls']) ?
-            (bool) $settings['starttls'] :
-            false;
+            (bool) $settings['starttls'] : false;
         $ldapVersion = isset($settings['version']) && !empty($settings['version']) ?
-            (int) $settings['version'] :
-            3;
+            (int) $settings['version'] : 3;
         $base_dn = $settings['base_dn'];
 
         if (substr($hostname, 0, 8) === 'ldaps://') {
