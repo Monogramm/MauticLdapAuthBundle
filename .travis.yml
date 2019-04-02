@@ -28,8 +28,8 @@ before_script:
 script:
   - mkdir .reports
   # Code style
-  - php vendor/bin/phpcs ./Config,./EventListener,./Form,./Integration,./Views --standard=PSR1 --encoding=utf-8 --report=summary
-  - php vendor/bin/phpcs ./Config,./EventListener,./Form,./Integration,./Views --standard=PSR2 --encoding=utf-8 --report=summary
+  - php vendor/bin/phpcs ./Config/ ./EventListener/ ./Form ./Integration/ ./Views/ --standard=PSR1 --encoding=utf-8 --report=summary
+  - php vendor/bin/phpcs ./Config/ ./EventListener/ ./Form ./Integration/ ./Views/ --standard=PSR2 --encoding=utf-8 --report=summary
 
 after_success:
   # Send cover
