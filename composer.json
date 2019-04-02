@@ -12,8 +12,13 @@
     }
   ],
   "require": {
+    "php": ">=5.6.19 <7.3",
     "mautic/composer-plugin": "^1.0",
-    "symfony/ldap": "~2.8"
+    "symfony/form": "~2.8",
+    "symfony/http-foundation": "~2.8",
+    "symfony/ldap": "~2.8",
+    "symfony/translation": "~2.8",
+    "symfony/security": "~2.8"
   },
   "autoload": {
       "psr-4": { "Monogramm\\MauticLdapAuthBundle\\": "" }
