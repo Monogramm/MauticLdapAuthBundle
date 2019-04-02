@@ -37,7 +37,7 @@ Edit manually your parameters in `local.php` (adapt to your LDAP configuration):
     // ...
 ```
 
-Once the parameters are set, open a new browser and check connection through LDAP. **Do not log out until LDAP connection is successful!**
+Once the parameters are set, open a new browser and check connection through LDAP. **Do not log out until LDAP configuration is valid!**
 
 ## Developments in progress
 
