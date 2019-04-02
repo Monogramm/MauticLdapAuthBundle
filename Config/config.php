@@ -10,7 +10,7 @@
 return array(
     'name'        => 'LdapAuth',
     'description' => 'Enables LDAP authentication',
-    'version'     => '0.9',
+    'version'     => '1.0',
     'author'      => 'Monogramm',
 
     'services'    => array(

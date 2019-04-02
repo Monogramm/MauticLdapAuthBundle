@@ -1,16 +1,12 @@
-# Mautic LDAP Authentication Plugin
-
 [![license](https://img.shields.io/packagist/v/monogramm/mautic-ldapauth-bundle.svg)](https://packagist.org/packages/monogramm/mautic-ldapauth-bundle)
 [![Packagist](https://img.shields.io/packagist/l/monogramm/mautic-ldapauth-bundle.svg)](LICENSE)
 [![Build Status](https://travis-ci.org/Monogramm/MauticLdapAuthBundle.svg)](https://travis-ci.org/Monogramm/MauticLdapAuthBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Monogramm/MauticLdapAuthBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Monogramm/MauticLdapAuthBundle/?branch=master)
 [![mautic](https://img.shields.io/badge/mautic-%3E%3D%202.11-blue.svg)](https://www.mautic.org/mixin/ldapauth/)
 
-This Plugin enables LDAP authentication for mautic 2 and newer.
+# Mautic LDAP Authentication Plugin
 
-Ideas and suggestions are welcome, feel free to create an issue or PR on Github.
-
-:construction: **This bundle is still in its early stages** 
+This Plugin enables LDAP authentication for mautic 2 and newer. Even though Mautic offers SAML authentication, the main objective is to offer an alternative to those who do not want to setup SSO in their company just for mautic :smiley:
 
 ## Installation via composer (preferred)
 Execute `composer require monogramm/mautic-ldapauth-bundle` in the main directory of the mautic installation.
@@ -46,3 +42,15 @@ Once the parameters are set, open a new browser and check connection through LDA
 ## Developments in progress
 
 * Configuration screen to set LDAP Auth parameters
+
+## Contributing
+
+Ideas and suggestions are welcome. Feel free to create an issue or PR on Github using our [CONTRIBUTING](CONTRIBUTING.md) guidelines.
+
+## License
+
+See [LICENSE](LICENSE) file.
+
+## Author(s)
+
+* [Monogramm](https://github.com/Monogramm)
