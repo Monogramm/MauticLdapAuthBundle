@@ -82,7 +82,9 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
      * @param array $settings
      * @param array $parameters
      *
-     * @return bool|string false if no error; otherwise the error string
+     * @return bool|array false if no error; otherwise the error string
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AuthenticationException
      */
     public function authCallback($settings = [], $parameters = [])
     {
@@ -109,7 +111,7 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
         if ($ssl) {
             if (substr($hostname, 0, 7) === 'ldap://') {
                 $hostname = str_replace('ldap://', 'ldaps://', $hostname);
-            } elseif(!substr($hostname, 0, 8) !== 'ldaps://') {
+            } elseif (!substr($hostname, 0, 8) !== 'ldaps://') {
                 $hostname = 'ldaps://' . $hostname;
             }
         }
@@ -159,6 +161,8 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
      * @param $tokenOverride
      *
      * @return bool|array false if no error; otherwise the error string
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AuthenticationException
      */
     public function extractAuthKeys($data, $tokenOverride = null)
     {
