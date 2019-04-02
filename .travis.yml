@@ -1,0 +1,37 @@
+language: php
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+php:
+  - 5.6
+  - 7.0
+  - 7.1
+  - 7.2
+  - hhvm
+
+matrix:
+  allow_failures:
+    - php: hhvm
+
+install:
+  - composer install
+
+before_script:
+  - composer self-update
+  - composer install --prefer-source
+  - if [ "$TRAVIS_PHP_VERSION" = "hhvm" -o "$TRAVIS_PHP_VERSION" = "hhvm-nightly" ]; then rm phpspec.yml; fi
+
+script:
+  - mkdir .reports
+  # Code style
+  - php vendor/bin/phpcs ./DependencyInjection/ --standard=PSR1 --encoding=utf-8 --report=summary
+  - php vendor/bin/phpcs ./DependencyInjection/ --standard=PSR2 --encoding=utf-8 --report=summary
+
+after_success:
+  # Send cover
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover ./coverage.xml

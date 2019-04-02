@@ -1,0 +1,26 @@
+{
+  "name": "monogramm/mautic-ldapauth-bundle",
+  "type": "mautic-plugin",
+  "description": "This plugin enables LDAP authentication for mautic.",
+  "keywords": ["mautic", "plugin", "ldap", "authentication"],
+  "homepage": "http://www.monogramm.io",
+  "license": "AGPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Monogramm",
+      "homepage": "https://github.com/Monogramm"
+    }
+  ],
+  "require": {
+    "mautic/composer-plugin": "^1.0",
+    "symfony/ldap": "~2.8"
+  },
+  "autoload": {
+      "psr-4": { "Monogramm\\MauticLdapAuthBundle\\": "" }
+  },
+  "require-dev": {
+      "phpspec/phpspec": "~2.1",
+      "leanphp/phpspec-code-coverage": "~2.1",
+      "squizlabs/php_codesniffer": "~3.0"
+  }
+}
