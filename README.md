@@ -1,4 +1,4 @@
-[![license](https://img.shields.io/packagist/v/monogramm/mautic-ldapauth-bundle.svg)](LICENSE)
+[![Packagist](https://img.shields.io/packagist/l/monogramm/mautic-ldapauth-bundle.svg)](LICENSE)
 [![Packagist Version](https://img.shields.io/packagist/v/monogramm/mautic-ldapauth-bundle.svg)](https://packagist.org/packages/monogramm/mautic-ldapauth-bundle)
 [![Build Status](https://travis-ci.org/Monogramm/MauticLdapAuthBundle.svg)](https://travis-ci.org/Monogramm/MauticLdapAuthBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Monogramm/MauticLdapAuthBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Monogramm/MauticLdapAuthBundle/?branch=master)
