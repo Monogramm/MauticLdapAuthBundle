@@ -97,6 +97,7 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
         $base_dn = $settings['base_dn'];
         $userKey = $settings['user_key'];
         $query = $settings['user_query'];
+        $password = $parameters['password'];
         $isactivedirectory = $settings['isactivedirectory'];
 
         if (substr($hostname, 0, 8) === 'ldaps://') {
@@ -134,16 +135,15 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
                     $replacements[0] = '.'; // the only actual replacement
                     $parsed_dn = preg_replace($patterns, $replacements, $base_dn);
                     $dn = "$login@$parsed_dn";
-
-                    $userquery = "$userKey=$login";
-                    $query = "(&($userquery)$query)"; // original $query already has brackets!
                 } else {
                     $dn = "$userKey=$login,$base_dn";
-                    $password = $parameters['password'];
                 }
 
+                $userquery = "$userKey=$login";
+                $query = "(&($userquery)$query)"; // original $query already has brackets!
+
                 $ldap->bind($dn, $password);
-                $response = $ldap->find($dn, $query);
+                $response = $ldap->find($base_dn, $query);
                 // If we reach this far, we expect to have found something
                 // and join the settings to the response to retrieve user fields
                 if (is_array($response)) {
