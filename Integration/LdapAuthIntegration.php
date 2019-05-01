@@ -89,12 +89,15 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
     public function authCallback($settings = [], $parameters = [])
     {
         $hostname = $settings['hostname'];
-        $port = isset($settings['port']) ? (int) $settings['port'] : 389;
-        $ssl = isset($settings['ssl']) ? (bool) $settings['ssl'] : false;
-        $startTls = isset($settings['starttls']) ? (bool) $settings['starttls'] : false;
+        $port = isset($settings['port']) ? (int)$settings['port'] : 389;
+        $ssl = isset($settings['ssl']) ? (bool)$settings['ssl'] : false;
+        $startTls = isset($settings['starttls']) ? (bool)$settings['starttls'] : false;
         $ldapVersion = isset($settings['version']) && !empty($settings['version']) ?
-            (int) $settings['version'] : 3;
+            (int)$settings['version'] : 3;
         $base_dn = $settings['base_dn'];
+        $userKey = $settings['user_key'];
+        $query = $settings['user_query'];
+        $isactivedirectory = $settings['isactivedirectory'];
 
         if (substr($hostname, 0, 8) === 'ldaps://') {
             $ssl = true;
@@ -122,11 +125,22 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
             $ldap = new LdapClient($hostname, $port, $ldapVersion, $ssl, $startTls);
 
             try {
-                $userKey = $settings['user_key'];
-                $query = $settings['user_query'];
+                if ($isactivedirectory) {
+                    $patterns = array();
+                    $patterns[0] = '/[,]/';
+                    $patterns[1] = '/DC=|dc=|d=/';
+                    $patterns[2] = '/\w{1,2}=\w+\./'; // delete all other common names and attributes
+                    $replacements = array();
+                    $replacements[0] = '.'; // the only actual replacement
+                    $parsed_dn = preg_replace($patterns, $replacements, $base_dn);
+                    $dn = "$login@$parsed_dn";
 
-                $dn = "$userKey=$login,$base_dn";
-                $password = $parameters['password'];
+                    $userquery = "$userKey=$login";
+                    $query = "(&($userquery)$query)"; // original $query already has brackets!
+                } else {
+                    $dn = "$userKey=$login,$base_dn";
+                    $password = $parameters['password'];
+                }
 
                 $ldap->bind($dn, $password);
                 $response = $ldap->find($dn, $query);
@@ -273,8 +287,8 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
      * {@inheritdoc}
      *
      * @param Form|\Symfony\Component\Form\FormBuilder $builder
-     * @param array                                    $data
-     * @param string                                   $formArea
+     * @param array $data
+     * @param string $formArea
      */
     public function appendToForm(&$builder, $data, $formArea)
     {
@@ -284,8 +298,8 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
                 'yesno_button_group',
                 [
                     'label' => 'mautic.integration.sso.ldapauth.auth_fallback',
-                    'data'  => (isset($data['auth_fallback'])) ? (bool) $data['auth_fallback'] : true,
-                    'attr'  => [
+                    'data' => (isset($data['auth_fallback'])) ? (bool)$data['auth_fallback'] : true,
+                    'attr' => [
                         'tooltip' => 'mautic.integration.sso.ldapauth.auth_fallback.tooltip',
                     ],
                 ]
@@ -296,8 +310,8 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
                 'yesno_button_group',
                 [
                     'label' => 'mautic.integration.sso.auto_create_user',
-                    'data'  => (isset($data['auto_create_user'])) ? (bool) $data['auto_create_user'] : false,
-                    'attr'  => [
+                    'data' => (isset($data['auto_create_user'])) ? (bool)$data['auto_create_user'] : false,
+                    'attr' => [
                         'tooltip' => 'mautic.integration.sso.auto_create_user.tooltip',
                     ],
                 ]
@@ -307,10 +321,10 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
                 'new_user_role',
                 'role_list',
                 [
-                    'label'      => 'mautic.integration.sso.new_user_role',
+                    'label' => 'mautic.integration.sso.new_user_role',
                     'label_attr' => ['class' => 'control-label'],
-                    'attr'       => [
-                        'class'   => 'form-control',
+                    'attr' => [
+                        'class' => 'form-control',
                         'tooltip' => 'mautic.integration.sso.new_user_role.tooltip',
                     ],
                 ]

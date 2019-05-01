@@ -108,6 +108,7 @@ class UserSubscriber implements EventSubscriberInterface
             'user_firstname'=> $this->parametersHelper->getParameter('ldap_auth_firstname_attribute', 'givenName'),
             'user_lastname' => $this->parametersHelper->getParameter('ldap_auth_lastname_attribute', 'sn'),
             'user_fullname' => $this->parametersHelper->getParameter('ldap_auth_fullname_attribute', 'displayName'),
+            'isactivedirectory' => $this->parametersHelper->getParameter('ldap_auth_isactivedirectory', false),
         ];
 
         $parameters = [

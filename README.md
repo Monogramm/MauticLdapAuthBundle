@@ -34,6 +34,7 @@ Edit manually your parameters in `local.php` (adapt to your LDAP configuration):
         'ldap_auth_firstname_attribute' => 'givenname',
         'ldap_auth_lastname_attribute' => 'sn',
         'ldap_auth_fullname_attribute' => 'displayname',
+        'ldap_auth_isactivedirectory' => true,
     // ...
 ```
 

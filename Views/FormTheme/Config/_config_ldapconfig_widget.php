@@ -84,6 +84,11 @@ $fieldKeys = array_keys($fields);
                     <?php echo $view['form']->row($fields['ldap_auth_fullname_attribute']); ?>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <?php echo $view['form']->row($fields['ldap_auth_isactivedirectory']); ?>
+                </div>
+            </div>
         </div>
     </div>
 <?php endif; ?>
