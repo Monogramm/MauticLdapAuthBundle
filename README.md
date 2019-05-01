@@ -48,7 +48,7 @@ A sample configuration for Active Directory is
         'ldap_auth_ssl' => false,
         'ldap_auth_starttls' => false,
         'ldap_auth_base_dn' => 'cn=Users,dc=ldap,dc=mysupercompany,dc=com',
-        'ldap_auth_user_query' => '(objectclass=user)',     // careful this can be case sensitive!
+        'ldap_auth_user_query' => '(objectclass=user)(memberof=marketing)',     // careful this can be case sensitive!
         'ldap_auth_username_attribute' => 'samaccountname', // this is case sensitive!
         'ldap_auth_email_attribute' => 'mail',
         'ldap_auth_firstname_attribute' => 'givenname',
