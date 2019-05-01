@@ -55,3 +55,7 @@ See [LICENSE](LICENSE) file.
 ## Author(s)
 
 * [Monogramm](https://github.com/Monogramm)
+
+## Awesome contributor(s)
+
+* [terdinatore](https://github.com/terdinatore)
