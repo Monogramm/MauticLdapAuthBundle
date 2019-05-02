@@ -219,7 +219,7 @@ class ConfigType extends AbstractType
                     'class' => 'form-control',
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.user_query.tooltip',
                 ],
-                'empty_data' => '(&(uid=%u)(objectclass=inetOrgPerson))',
+                'empty_data' => '(objectclass=inetOrgPerson)',
             ]
         );
 
