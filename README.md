@@ -55,7 +55,7 @@ A sample configuration for Active Directory is
         'ldap_auth_lastname_attribute' => 'sn',
         'ldap_auth_fullname_attribute' => 'displayname',
         'ldap_auth_isactivedirectory' => true,
-        'ldap_auth_activedirectory_domain' => 'ad.mysupercompany.com'
+        'ldap_auth_activedirectory_domain' => 'ad.mysupercompany.com',
     // ...
 ```
 
