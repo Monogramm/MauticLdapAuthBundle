@@ -21,16 +21,11 @@ return array(
                     'mautic.helper.core_parameters'
                 ),
             ),
-            // Not fully working yet
-            /*
             'mautic.ldapauth.config.subscriber' => array(
                 'class' => 'MauticPlugin\MauticLdapAuthBundle\EventListener\ConfigSubscriber',
             ),
-            */
         ),
         'forms'  => array(
-            // Not fully working yet
-            /*
             'mautic.form.type.ldapconfig' => array(
                 'class'     => 'MauticPlugin\MauticLdapAuthBundle\Form\Type\ConfigType',
                 'alias'     => 'ldapconfig',
@@ -39,7 +34,6 @@ return array(
                     'translator',
                 ),
             ),
-            */
         ),
     ),
     'parameters' => array(
