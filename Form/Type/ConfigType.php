@@ -225,6 +225,19 @@ class ConfigType extends AbstractType
                 'required' => false,
             ]
         );
+        $builder->add(
+            'ldap_auth_activedirectory_domain',
+            TextType::class,
+            [
+                'label'      => 'mautic.integration.sso.ldapauth.config.form.activedirectory_domain',
+                'label_attr' => ['class' => 'control-label'],
+                'attr'       => [
+                    'class' => 'form-control',
+                ],
+                'empty_data' => 'false',
+                'required' => false,
+            ]
+        );
     }
 
     /**

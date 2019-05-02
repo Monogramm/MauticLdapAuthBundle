@@ -47,14 +47,15 @@ A sample configuration for Active Directory is
         'ldap_auth_version' => 3,
         'ldap_auth_ssl' => false,
         'ldap_auth_starttls' => false,
-        'ldap_auth_base_dn' => 'cn=Users,dc=ldap,dc=mysupercompany,dc=com',
+        'ldap_auth_base_dn' => 'cn=Users,dc=ad,dc=mysupercompany,dc=com',
         'ldap_auth_user_query' => '(objectclass=user)(memberof=marketing)',     // careful this can be case sensitive!
-        'ldap_auth_username_attribute' => 'samaccountname', // this is case sensitive!
+        'ldap_auth_username_attribute' => 'samaccountname',                     // this is case sensitive!
         'ldap_auth_email_attribute' => 'mail',
         'ldap_auth_firstname_attribute' => 'givenname',
         'ldap_auth_lastname_attribute' => 'sn',
         'ldap_auth_fullname_attribute' => 'displayname',
         'ldap_auth_isactivedirectory' => true,
+        'ldap_auth_activedirectory_domain' => 'ad.mysupercompany.com'
     // ...
 ```
 

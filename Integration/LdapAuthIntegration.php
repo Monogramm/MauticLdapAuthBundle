@@ -99,6 +99,7 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
         $query = $settings['user_query'];
         $password = $parameters['password'];
         $isactivedirectory = $settings['isactivedirectory'];
+        $activedirectory_dn = $settings['activedirectory_domain'];
 
         if (substr($hostname, 0, 8) === 'ldaps://') {
             $ssl = true;
@@ -127,17 +128,21 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
 
             try {
                 if ($isactivedirectory) {
-                    $patterns = array();
+
+                    /*$patterns = array();
                     $patterns[0] = '/[,]/';
                     $patterns[1] = '/DC=|dc=|d=/';
                     $patterns[2] = '/\w{1,2}=\w+\./'; // delete all other common names and attributes
                     $replacements = array();
                     $replacements[0] = '.'; // the only actual replacement
-                    $parsed_dn = preg_replace($patterns, $replacements, $base_dn);
-                    $dn = "$login@$parsed_dn";
+                    $parsed_dn = preg_replace($patterns, $replacements, $base_dn); */
+
+                    $dn = "$login@$activedirectory_dn";
+
                 } else {
                     $dn = "$userKey=$login,$base_dn";
                 }
+
 
                 $userquery = "$userKey=$login";
                 $query = "(&($userquery)$query)"; // original $query already has brackets!
