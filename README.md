@@ -43,7 +43,8 @@ Once the parameters are set, open a new browser and check connection through LDA
 
 ## Developments in progress
 
-* Configuration screen to set LDAP Auth parameters
+* Test LDAP Authentication settings
+* LDAP bind account and Group management
 
 ## Contributing
 
