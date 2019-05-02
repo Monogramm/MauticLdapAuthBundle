@@ -90,7 +90,13 @@ class ConfigType extends AbstractType
                     'class' => 'form-control',
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.ssl.tooltip',
                 ],
-                'data'        => isset($options['data']['ldap_auth_ssl']) ? (bool) $options['data']['ldap_auth_ssl'] : (isset($options['data']['ldap_auth_host']) ? substr($options['data']['ldap_auth_host'], 0, 8) === 'ldaps://' : false),
+                'data'        => isset($options['data']['ldap_auth_ssl']) ?
+                    (bool) $options['data']['ldap_auth_ssl']
+                    : (
+                        isset($options['data']['ldap_auth_host']) ?
+                            substr($options['data']['ldap_auth_host'], 0, 8) === 'ldaps://'
+                            : false
+                    ),
                 'empty_data' => false,
             ]
         );
@@ -104,7 +110,9 @@ class ConfigType extends AbstractType
                     'class' => 'form-control',
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.starttls.tooltip',
                 ],
-                'data'        => isset($options['data']['ldap_auth_starttls']) ? (bool) $options['data']['ldap_auth_starttls'] : false,
+                'data'        => isset($options['data']['ldap_auth_starttls']) ?
+                    (bool) $options['data']['ldap_auth_starttls']
+                    : false,
                 'empty_data' => false,
             ]
         );

@@ -9,9 +9,16 @@
 
 $fields    = $form->children;
 $fieldKeys = array_keys($fields);
+$key = [
+    'ldap_auth_host',
+    'ldap_auth_username_attribute',
+    'ldap_auth_email_attribute',
+    'ldap_auth_firstname_attribute',
+    'ldap_auth_lastname_attribute'
+];
 ?>
 
-<?php if (count(array_intersect($fieldKeys, ['ldap_auth_host', 'ldap_auth_username_attribute', 'ldap_auth_email_attribute', 'ldap_auth_firstname_attribute', 'ldap_auth_lastname_attribute']))) : ?>
+<?php if (count(array_intersect($fieldKeys, $keys))) : ?>
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title"><?php
@@ -51,7 +58,9 @@ $fieldKeys = array_keys($fields);
                     </div>
                     <div class="col-md-9 help-block">
                         <div class="status-msg"></div>
-                        <div class="save-config-msg hide text-danger"><?php //echo $view['translator']->trans('mautic.ldap.config.save_to_test'); ?></div>
+                        <div class="save-config-msg hide text-danger"><?php
+                            //echo $view['translator']->trans('mautic.ldap.config.save_to_test');
+                        ?></div>
                     </div>
                 </div>
                 -->
