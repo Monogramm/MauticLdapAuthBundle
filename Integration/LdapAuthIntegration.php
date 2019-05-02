@@ -190,7 +190,7 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
         if (!$fallback) {
             throw new AuthenticationException($error);
         } else {
-            $this->getLogger()->addDebug($error);
+            $this->getLogger()->addError($error);
         }
     }
 
