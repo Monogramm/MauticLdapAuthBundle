@@ -1,5 +1,5 @@
 {
-  "name": "monogramm/mautic-ldapauth-bundle",
+  "name": "monogramm/mautic-ldap-auth-bundle",
   "type": "mautic-plugin",
   "description": "This plugin enables LDAP authentication for mautic.",
   "keywords": ["mautic", "plugin", "ldap", "authentication"],
