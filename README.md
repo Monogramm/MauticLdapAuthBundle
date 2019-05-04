@@ -1,5 +1,5 @@
-[![Packagist](https://img.shields.io/packagist/l/monogramm/mautic-ldapauth-bundle.svg)](LICENSE)
-[![Packagist Version](https://img.shields.io/packagist/v/monogramm/mautic-ldapauth-bundle.svg)](https://packagist.org/packages/monogramm/mautic-ldapauth-bundle)
+[![Packagist](https://img.shields.io/packagist/l/monogramm/mautic-ldap-auth-bundle.svg)](LICENSE)
+[![Packagist Version](https://img.shields.io/packagist/v/monogramm/mautic-ldap-auth-bundle.svg)](https://packagist.org/packages/monogramm/mautic-ldap-auth-bundle)
 [![Build Status](https://travis-ci.org/Monogramm/MauticLdapAuthBundle.svg)](https://travis-ci.org/Monogramm/MauticLdapAuthBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Monogramm/MauticLdapAuthBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Monogramm/MauticLdapAuthBundle/?branch=master)
 [![mautic](https://img.shields.io/badge/mautic-%3E%3D%202.11-blue.svg)](https://www.mautic.org/mixin/ldapauth/)
@@ -9,11 +9,12 @@
 This Plugin enables LDAP authentication for mautic 2 and newer. Even though Mautic offers SAML authentication, the main objective is to offer an alternative to those who do not want to setup SSO in their company just for mautic :smiley:
 
 ## Installation via composer (preferred)
-Execute `composer require monogramm/mautic-ldapauth-bundle` in the main directory of the mautic installation.
+Execute `composer require monogramm/mautic-ldap-auth-bundle` in the main directory of the mautic installation.
 
 ## Installation via .zip
 1. Download the [master.zip](https://github.com/Monogramm/MauticLdapAuthBundle/archive/master.zip), extract it into the `plugins/` directory and rename the new directory to `MauticLdapAuthBundle`.
-2. Clear the cache via console command `php app/console cache:clear --env=prod` (might take a while) *OR* manually delete the `app/cache/prod` directory.
+2. Install `symfony/ldap` requirements with composer: `composer require symfony/ldap:~2.8`
+3. Clear the cache via console command `php app/console cache:clear --env=prod` (might take a while) *OR* manually delete the `app/cache/prod` directory.
 
 ## Configuration
 Navigate to the Plugins page and click "Install/Upgrade Plugins". You should now see a "LDAP Auth" plugin.
@@ -79,3 +80,7 @@ See [LICENSE](LICENSE) file.
 ## Author(s)
 
 * [Monogramm](https://github.com/Monogramm)
+
+## Awesome contributor(s)
+
+* [terdinatore](https://github.com/terdinatore)
