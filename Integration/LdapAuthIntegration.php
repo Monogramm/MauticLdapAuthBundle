@@ -89,11 +89,10 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
     public function authCallback($settings = [], $parameters = [])
     {
         $hostname = $settings['hostname'];
-        $port = isset($settings['port']) ? (int) $settings['port'] : 389;
-        $ssl = isset($settings['ssl']) ? (bool) $settings['ssl'] : false;
-        $startTls = isset($settings['starttls']) ? (bool) $settings['starttls'] : false;
-        $ldapVersion = isset($settings['version']) && !empty($settings['version']) ?
-            (int) $settings['version'] : 3;
+        $port = (int) $settings['port'];
+        $ssl = (bool) $settings['ssl'];
+        $startTls = (bool) $settings['starttls'];
+        $ldapVersion = !empty($settings['version']) ? (int) $settings['version'] : 3;
 
         if (substr($hostname, 0, 7) === 'ldap://') {
             $hostname = str_replace('ldap://', '', $hostname);
