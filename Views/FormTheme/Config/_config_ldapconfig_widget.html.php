@@ -94,6 +94,14 @@ $key = [
                     <?php echo $view['form']->row($fields['ldap_auth_user_query']); ?>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <?php echo $view['form']->row($fields['ldap_auth_isactivedirectory']); ?>
+                </div>
+                <div class="col-md-6">
+                    <?php echo $view['form']->row($fields['ldap_auth_activedirectory_domain']); ?>
+                </div>
+            </div>
             <hr />
 
             <div class="alert alert-info"><?php

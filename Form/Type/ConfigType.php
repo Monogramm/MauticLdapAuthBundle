@@ -208,7 +208,6 @@ class ConfigType extends AbstractType
                 'empty_data' => null,
             ]
         );
-
         $builder->add(
             'ldap_auth_user_query',
             TextType::class,
@@ -220,6 +219,35 @@ class ConfigType extends AbstractType
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.user_query.tooltip',
                 ],
                 'empty_data' => '(objectclass=inetOrgPerson)',
+            ]
+        );
+
+        $builder->add(
+            'ldap_auth_isactivedirectory',
+            YesNoButtonGroupType::class,
+            [
+                'label'      => 'mautic.integration.sso.ldapauth.config.form.isactivedirectory',
+                'label_attr' => ['class' => 'control-label'],
+                'attr'       => [
+                    'class' => 'form-control',
+                    'tooltip' => 'mautic.integration.sso.ldapauth.config.form.isactivedirectory.tooltip',
+                ],
+                'empty_data' => 'false',
+                'required' => false,
+            ]
+        );
+        $builder->add(
+            'ldap_auth_activedirectory_domain',
+            TextType::class,
+            [
+                'label'      => 'mautic.integration.sso.ldapauth.config.form.activedirectory_domain',
+                'label_attr' => ['class' => 'control-label'],
+                'attr'       => [
+                    'class' => 'form-control',
+                    'tooltip' => 'mautic.integration.sso.ldapauth.config.form.activedirectory_domain.tooltip',
+                ],
+                'empty_data' => null,
+                'required' => false,
             ]
         );
 
