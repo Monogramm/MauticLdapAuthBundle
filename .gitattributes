@@ -9,6 +9,7 @@
 *.svg text
 *.md text
 *.lock text eol=lf
+*.js text eol=lf
 *.json text eol=lf
 *.php text eol=lf
 Dockerfile text eol=lf
