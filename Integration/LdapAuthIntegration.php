@@ -133,7 +133,8 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
      *
      * @throws \Symfony\Component\Security\Core\Exception\AuthenticationException
      */
-    private function ldapUserLookup($ldap, $settings = [], $parameters = []) {
+    private function ldapUserLookup($ldap, $settings = [], $parameters = [])
+    {
         $base_dn = $settings['base_dn'];
         $userKey = $settings['user_key'];
         $query = $settings['user_query'];
