@@ -98,18 +98,18 @@ class UserSubscriber implements EventSubscriberInterface
             'ssl'           => $this->parametersHelper->getParameter('ldap_auth_ssl', false),
             'starttls'      => $this->parametersHelper->getParameter('ldap_auth_starttls', true),
             'version'       => $this->parametersHelper->getParameter('ldap_auth_version', 3),
-            // TODO Not used for now
+            // TODO Coming feature: Bind DN
             //'bind_dn'       => $this->parametersHelper->getParameter('ldap_auth_bind_dn'),
             //'bind_passwd'   => $this->parametersHelper->getParameter('ldap_auth_bind_passwd'),
             'base_dn'       => $this->parametersHelper->getParameter('ldap_auth_base_dn'),
             'user_query'    => $this->parametersHelper->getParameter('ldap_auth_user_query', ''),
+            'is_ad'         => $this->parametersHelper->getParameter('ldap_auth_isactivedirectory', false),
+            'ad_domain'     => $this->parametersHelper->getParameter('ldap_auth_activedirectory_domain', null),
             'user_key'      => $this->parametersHelper->getParameter('ldap_auth_username_attribute', 'uid'),
             'user_email'    => $this->parametersHelper->getParameter('ldap_auth_email_attribute', 'mail'),
             'user_firstname'=> $this->parametersHelper->getParameter('ldap_auth_firstname_attribute', 'givenName'),
             'user_lastname' => $this->parametersHelper->getParameter('ldap_auth_lastname_attribute', 'sn'),
             'user_fullname' => $this->parametersHelper->getParameter('ldap_auth_fullname_attribute', 'displayName'),
-            'isactivedirectory' => $this->parametersHelper->getParameter('ldap_auth_isactivedirectory', false),
-            'activedirectory_domain' => $this->parametersHelper->getParameter('ldap_auth_activedirectory_domain', null),
         ];
 
         $parameters = [

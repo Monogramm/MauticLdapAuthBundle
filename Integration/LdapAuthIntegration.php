@@ -138,15 +138,15 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
         $base_dn = $settings['base_dn'];
         $userKey = $settings['user_key'];
         $query = $settings['user_query'];
-        $isactivedirectory = $settings['isactivedirectory'];
-        $activedirectory_dn = $settings['activedirectory_domain'];
+        $is_ad = $settings['is_ad'];
+        $ad_domain = $settings['ad_domain'];
 
         $login = $parameters['login'];
         $password = $parameters['password'];
 
         try {
-            if ($isactivedirectory) {
-                $dn = "$login@$activedirectory_dn";
+            if ($is_ad) {
+                $dn = "$login@$ad_domain";
             } else {
                 $dn = "$userKey=$login,$base_dn";
             }
@@ -238,9 +238,10 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
 
             $data = $response['data'];
             $login = isset($data[$userKey]) ? $data[$userKey][0] : null;
+            $email = isset($data[$userEmail]) ? $data[$userEmail][0] : null;
 
-            if (empty($login)) {
-                // Login could not be found so bail
+            if (empty($login) || empty($email)) {
+                // Login or email could not be found so bail
                 return false;
             }
 
@@ -256,13 +257,6 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
                 } else {
                     $firstname = $lastname = $names[0];
                 }
-            }
-
-            $email = isset($data[$userEmail]) ? $data[$userEmail][0] : null;
-
-            if (empty($email)) {
-                // Email could not be found so bail
-                return false;
             }
 
             $user = new User();
