@@ -232,7 +232,7 @@ class ConfigType extends AbstractType
                     'class' => 'form-control',
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.isactivedirectory.tooltip',
                 ],
-                'empty_data' => 'false',
+                'empty_data' => false,
                 'required' => false,
             ]
         );
