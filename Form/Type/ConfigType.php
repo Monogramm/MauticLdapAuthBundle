@@ -135,7 +135,7 @@ class ConfigType extends AbstractType
         // TODO Coming feature: test LDAP connection
         /*
         $builder->add(
-            'mailer_test_connection_button',
+            'ldap_auth_test_connection_button',
             'standalone_button',
             [
                 'label'       => 'mautic.integration.sso.ldapauth.config.form.test_connection',
@@ -191,6 +191,19 @@ class ConfigType extends AbstractType
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.bind_passwd.tooltip',
                 ],
                 'empty_data' => null,
+            ]
+        );
+
+        $builder->add(
+            'ldap_auth_test_authenticate_button',
+            'standalone_button',
+            [
+                'label'    => 'mautic.integration.sso.ldapauth.config.form.test_authentication',
+                'required' => false,
+                'attr'     => [
+                    'class'   => 'btn btn-info',
+                    'onclick' => 'Mautic.testLdapAuthentication()',
+                ],
             ]
         );
         */

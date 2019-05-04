@@ -51,9 +51,9 @@ $keys = [
                 </div>
                 <!-- TODO Coming feature: test LDAP connection -->
                 <!--
-                <div class="col-md-6">
+                <div class="col-md-6" id="ldapAuthTestButtonContainer">
                     <div class="button_container">
-                        <?php //echo $view['form']->widget($fields['mailer_test_connection_button']); ?>
+                        <?php //echo $view['form']->widget($fields['ldap_auth_test_connection_button']); ?>
                         <span class="fa fa-spinner fa-spin hide"></span>
                     </div>
                     <div class="col-md-9 help-block">

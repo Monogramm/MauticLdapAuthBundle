@@ -42,7 +42,7 @@ return array(
         'ldap_auth_version' => 3,
         'ldap_auth_ssl' => false,
         'ldap_auth_starttls' => true,
-        // TODO Bind DN not used for now
+        // TODO Coming feature: Bind DN
         //'ldap_auth_bind_dn' => 'cn=admin,dc=ldap,dc=company,dc=com',
         //'ldap_auth_bind_passwd' => null,
         'ldap_auth_base_dn' => null,
