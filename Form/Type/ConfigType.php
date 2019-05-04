@@ -76,7 +76,7 @@ class ConfigType extends AbstractType
                     'class' => 'form-control',
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.port.tooltip',
                 ],
-                'empty_data' => 'mail',
+                'empty_data' => 389,
             ]
         );
 

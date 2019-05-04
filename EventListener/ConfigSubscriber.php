@@ -52,8 +52,10 @@ class ConfigSubscriber extends CommonSubscriber
     {
         $data = $event->getConfig('ldapconfig');
 
-        // Nothing special to do for now
-        // TODO Check that LDAP server is reachable ?
+        // Manipulate the values
+        if (!empty($data['ldap_auth_host']) && substr($data['ldap_auth_host'], 0, 8) === 'ldaps://') {
+            $data['ldap_auth_ssl'] = true;
+        }
 
         $event->setConfig($data, 'ldapconfig');
     }
