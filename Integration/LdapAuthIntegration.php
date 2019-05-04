@@ -236,16 +236,16 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
             $userFullname = $settings['user_fullname'];
 
             $data = $response['data'];
-            $login = isset($data[$userKey]) ? $data[$userKey][0] : null;
-            $email = isset($data[$userEmail]) ? $data[$userEmail][0] : null;
+            $login = self::arrayGet($data, $userKey, [null])[0];
+            $email = self::arrayGet($data, $userEmail, [null])[0];
 
             if (empty($login) || empty($email)) {
                 // Login or email could not be found so bail
                 return false;
             }
 
-            $firstname = isset($data[$userFirstname]) ? $data[$userFirstname][0] : null;
-            $lastname = isset($data[$userLastname]) ? $data[$userLastname][0] : null;
+            $firstname = self::arrayGet($data, $userFirstname, [null])[0];
+            $lastname = self::arrayGet($data, $userLastname, [null])[0];
 
             if ((empty($firstname) || empty($lastname)) && isset($data[$userFullname])) {
                 $names = explode(' ', $data[$userFullname][0]);
@@ -271,6 +271,20 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
         }
 
         return false;
+    }
+
+    /**
+     * Get a value from an array or return default value if not set.
+     *
+     * @param array $array source array
+     * @param string $key key to get from array
+     * @param mixed $default default value if key not set in array
+     *
+     * @return mixed a value from array or default value.
+     */
+    private function arrayGet($array, $key, $default = null)
+    {
+        return isset($array[$key]) ? $array[$key] : $default;
     }
 
     /**
