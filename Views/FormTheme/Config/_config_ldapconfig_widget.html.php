@@ -9,7 +9,7 @@
 
 $fields    = $form->children;
 $fieldKeys = array_keys($fields);
-$key = [
+$keys = [
     'ldap_auth_host',
     'ldap_auth_username_attribute',
     'ldap_auth_email_attribute',
