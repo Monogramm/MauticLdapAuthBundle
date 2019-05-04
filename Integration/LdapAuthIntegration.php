@@ -101,8 +101,11 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
         $isactivedirectory = $settings['isactivedirectory'];
         $activedirectory_dn = $settings['activedirectory_domain'];
 
-        if (substr($hostname, 0, 8) === 'ldaps://') {
+        if (substr($hostname, 0, 7) === 'ldap://') {
+            $hostname = str_replace('ldap://', '', $hostname);
+        } elseif (substr($hostname, 0, 8) !== 'ldaps://') {
             $ssl = true;
+            $hostname = str_replace('ldaps://', '', $hostname);
         }
 
         if (empty($port)) {
@@ -111,14 +114,6 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
                 $startTls = false;
             } else {
                 $port = 389;
-            }
-        }
-
-        if ($ssl) {
-            if (substr($hostname, 0, 7) === 'ldap://') {
-                $hostname = str_replace('ldap://', 'ldaps://', $hostname);
-            } elseif (substr($hostname, 0, 8) !== 'ldaps://') {
-                $hostname = 'ldaps://' . $hostname;
             }
         }
 
