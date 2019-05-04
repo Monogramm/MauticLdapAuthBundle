@@ -94,67 +94,86 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
         $startTls = isset($settings['starttls']) ? (bool) $settings['starttls'] : false;
         $ldapVersion = isset($settings['version']) && !empty($settings['version']) ?
             (int) $settings['version'] : 3;
-        $base_dn = $settings['base_dn'];
-        $userKey = $settings['user_key'];
-        $query = $settings['user_query'];
-        $password = $parameters['password'];
-        $isactivedirectory = $settings['isactivedirectory'];
-        $activedirectory_dn = $settings['activedirectory_domain'];
 
         if (substr($hostname, 0, 7) === 'ldap://') {
             $hostname = str_replace('ldap://', '', $hostname);
         } elseif (substr($hostname, 0, 8) !== 'ldaps://') {
             $ssl = true;
+            $startTls = false;
             $hostname = str_replace('ldaps://', '', $hostname);
         }
 
         if (empty($port)) {
             if ($ssl) {
                 $port = 636;
-                $startTls = false;
             } else {
                 $port = 389;
             }
         }
 
-        $login = $parameters['login'];
-        if (!empty($hostname) && !empty($login)) {
+        if (!empty($hostname) && !empty($parameters['login'])) {
             $ldap = new LdapClient($hostname, $port, $ldapVersion, $ssl, $startTls);
 
-            try {
-                if ($isactivedirectory) {
-                    $dn = "$login@$activedirectory_dn";
-                } else {
-                    $dn = "$userKey=$login,$base_dn";
-                }
-
-                $userquery = "$userKey=$login";
-                $query = "(&($userquery)$query)"; // original $query already has brackets!
-
-                $ldap->bind($dn, $password);
-                $response = $ldap->find($base_dn, $query);
-                // If we reach this far, we expect to have found something
-                // and join the settings to the response to retrieve user fields
-                if (is_array($response)) {
-                    $response['settings'] = $settings;
-                }
-            } catch (\Exception $e) {
-                $response = array(
-                    'errors' => array(
-                        $this->factory->getTranslator()->trans(
-                            'mautic.integration.sso.ldapauth.error.authentication_issue',
-                            [],
-                            'flashes'
-                        ),
-                        $e->getMessage()
-                    )
-                );
-            }
+            $response = $this->ldapUserLookup($ldap, $settings, $parameters);
 
             return $this->extractAuthKeys($response);
         }
 
         return false;
+    }
+
+    /**
+     * LDAP authentication and lookup user information.
+     *
+     * @param \Symfony\Component\Ldap\LdapClient $ldap
+     * @param array $settings
+     * @param array $parameters
+     *
+     * @return array array containing the LDAP lookup results or error message(s).
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AuthenticationException
+     */
+    private function ldapUserLookup($ldap, $settings = [], $parameters = []) {
+        $base_dn = $settings['base_dn'];
+        $userKey = $settings['user_key'];
+        $query = $settings['user_query'];
+        $isactivedirectory = $settings['isactivedirectory'];
+        $activedirectory_dn = $settings['activedirectory_domain'];
+
+        $login = $parameters['login'];
+        $password = $parameters['password'];
+
+        try {
+            if ($isactivedirectory) {
+                $dn = "$login@$activedirectory_dn";
+            } else {
+                $dn = "$userKey=$login,$base_dn";
+            }
+
+            $userquery = "$userKey=$login";
+            $query = "(&($userquery)$query)"; // original $query already has brackets!
+
+            $ldap->bind($dn, $password);
+            $response = $ldap->find($base_dn, $query);
+            // If we reach this far, we expect to have found something
+            // and join the settings to the response to retrieve user fields
+            if (is_array($response)) {
+                $response['settings'] = $settings;
+            }
+        } catch (\Exception $e) {
+            $response = array(
+                'errors' => array(
+                    $this->factory->getTranslator()->trans(
+                        'mautic.integration.sso.ldapauth.error.authentication_issue',
+                        [],
+                        'flashes'
+                    ),
+                    $e->getMessage()
+                )
+            );
+        }
+
+        return $response;
     }
 
     /**
