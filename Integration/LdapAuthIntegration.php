@@ -89,11 +89,11 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
     public function authCallback($settings = [], $parameters = [])
     {
         $hostname = $settings['hostname'];
-        $port = isset($settings['port']) ? (int)$settings['port'] : 389;
-        $ssl = isset($settings['ssl']) ? (bool)$settings['ssl'] : false;
-        $startTls = isset($settings['starttls']) ? (bool)$settings['starttls'] : false;
+        $port = isset($settings['port']) ? (int) $settings['port'] : 389;
+        $ssl = isset($settings['ssl']) ? (bool) $settings['ssl'] : false;
+        $startTls = isset($settings['starttls']) ? (bool) $settings['starttls'] : false;
         $ldapVersion = isset($settings['version']) && !empty($settings['version']) ?
-            (int)$settings['version'] : 3;
+            (int) $settings['version'] : 3;
         $base_dn = $settings['base_dn'];
         $userKey = $settings['user_key'];
         $query = $settings['user_query'];
@@ -292,7 +292,7 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
                 'yesno_button_group',
                 [
                     'label' => 'mautic.integration.sso.ldapauth.auth_fallback',
-                    'data' => (isset($data['auth_fallback'])) ? (bool)$data['auth_fallback'] : true,
+                    'data' => (isset($data['auth_fallback'])) ? (bool) $data['auth_fallback'] : true,
                     'attr' => [
                         'tooltip' => 'mautic.integration.sso.ldapauth.auth_fallback.tooltip',
                     ],
@@ -304,7 +304,7 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
                 'yesno_button_group',
                 [
                     'label' => 'mautic.integration.sso.auto_create_user',
-                    'data' => (isset($data['auto_create_user'])) ? (bool)$data['auto_create_user'] : false,
+                    'data' => (isset($data['auto_create_user'])) ? (bool) $data['auto_create_user'] : false,
                     'attr' => [
                         'tooltip' => 'mautic.integration.sso.auto_create_user.tooltip',
                     ],
