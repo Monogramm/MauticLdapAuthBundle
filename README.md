@@ -68,7 +68,7 @@ A sample configuration for Active Directory is
 
 Once the parameters are set, open a new browser and check connection through LDAP. **Do not log out until LDAP configuration is valid!**
 
-## Behing reverse proxy SSO Kerberos authenticated
+## Behind reverse proxy SSO Kerberos authenticated
 
 * Redirect to page /s/sso_login/LdapAuth
 * Create a special AD account to auto-create users from AD without binding (without password)
