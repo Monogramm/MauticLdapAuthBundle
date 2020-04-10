@@ -3,7 +3,11 @@
  * @package     Mautic
  * @copyright   2019 Monogramm. All rights reserved
  * @author      Monogramm
+ * @contributor      enguerr
+ *
  * @link        https://www.monogramm.io
+ * @link        https://www.septeo.fr
+ *
  * @license     GNU/AGPLv3 http://www.gnu.org/licenses/agpl.html
  */
 
@@ -75,7 +79,15 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
     {
         return '';
     }
-
+    /**
+     * @return array
+     */
+    public function getSupportedFeatures()
+    {
+        return [
+            'sso_service',
+        ];
+    }
     /**
      * {@inheritdoc}
      *
@@ -88,6 +100,7 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
      */
     public function authCallback($settings = [], $parameters = [])
     {
+        //die('authcallback');
         $hostname = $settings['hostname'];
         $port = (int) $settings['port'];
         $ssl = (bool) $settings['ssl'];
@@ -114,7 +127,6 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
             $ldap = new LdapClient($hostname, $port, $ldapVersion, $ssl, $startTls);
 
             $response = $this->ldapUserLookup($ldap, $settings, $parameters);
-
             return $this->extractAuthKeys($response);
         }
 
@@ -139,22 +151,32 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
         $query = $settings['user_query'];
         $is_ad = $settings['is_ad'];
         $ad_domain = $settings['ad_domain'];
+        $basic_auth= false;
 
-        $login = $parameters['login'];
+        if (isset($_SERVER["PHP_AUTH_USER"]) && !empty($_SERVER["PHP_AUTH_USER"])) {
+            $basic_auth= true;
+            $login = $_SERVER["PHP_AUTH_USER"];
+        }else
+            $login = $parameters['login'];
         $password = $parameters['password'];
 
         try {
             if ($is_ad) {
-                $dn = "$login@$ad_domain";
+                if (!$basic_auth)
+                    $dn = "$login@$ad_domain";
+                else{
+                    $dn = "cs-LDAPReader@$ad_domain";
+                    $password = "LDre2012";
+                }
             } else {
                 $dn = "$userKey=$login,$base_dn";
             }
 
             $userquery = "$userKey=$login";
             $query = "(&($userquery)$query)"; // original $query already has brackets!
-
             $ldap->bind($dn, $password);
             $response = $ldap->find($base_dn, $query);
+
             // If we reach this far, we expect to have found something
             // and join the settings to the response to retrieve user fields
             if (is_array($response)) {
@@ -231,14 +253,17 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
             $settings = $response['settings'];
             $userKey = $settings['user_key'];
             $userEmail = $settings['user_email'];
+            //fallback to principal in case of email missing
+            $fbEmail = 'userprincipalname';
             $userFirstname = $settings['user_firstname'];
             $userLastname = $settings['user_lastname'];
             $userFullname = $settings['user_fullname'];
 
             $data = $response['data'];
+
             $login = self::arrayGet($data, $userKey, [null])[0];
             $email = self::arrayGet($data, $userEmail, [null])[0];
-
+            if (empty($email))$email = self::arrayGet($data, $fbEmail, [null])[0];
             if (empty($login) || empty($email)) {
                 // Login or email could not be found so bail
                 return false;
@@ -266,7 +291,6 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
                 ->setRole(
                     $this->getUserRole()
                 );
-
             return $user;
         }
 

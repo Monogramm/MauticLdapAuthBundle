@@ -9,10 +9,10 @@
 This Plugin enables LDAP authentication for mautic 2 and newer. Even though Mautic offers SAML authentication, the main objective is to offer an alternative to those who do not want to setup SSO in their company just for mautic :smiley:
 
 ## Installation via composer (preferred)
-Execute `composer require monogramm/mautic-ldap-auth-bundle` in the main directory of the mautic installation.
+Execute `composer require enguerr/mautic-ldap-auth-bundle` in the main directory of the mautic installation.
 
 ## Installation via .zip
-1. Download the [master.zip](https://github.com/Monogramm/MauticLdapAuthBundle/archive/master.zip), extract it into the `plugins/` directory and rename the new directory to `MauticLdapAuthBundle`.
+1. Download the [master.zip](https://github.com/enguerr/MauticLdapAuthBundle/archive/master.zip), extract it into the `plugins/` directory and rename the new directory to `MauticLdapAuthBundle`.
 2. Install `symfony/ldap` requirements with composer: `composer require symfony/ldap:~2.8`
 3. Clear the cache via console command `php app/console cache:clear --env=prod` (might take a while) *OR* manually delete the `app/cache/prod` directory.
 
@@ -84,3 +84,5 @@ See [LICENSE](LICENSE) file.
 ## Awesome contributor(s)
 
 * [terdinatore](https://github.com/terdinatore)
+* [enguerr](https://github.com/enguerr)
+

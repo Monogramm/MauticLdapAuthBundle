@@ -3,7 +3,11 @@
  * @package     Mautic
  * @copyright   2019 Monogramm. All rights reserved
  * @author      Monogramm
+ * @contributor      enguerr
+ *
  * @link        https://www.monogramm.io
+ * @link        https://www.septeo.fr
+ *
  * @license     GNU/AGPLv3 http://www.gnu.org/licenses/agpl.html
  */
 
@@ -17,6 +21,8 @@ use Mautic\UserBundle\UserEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\AuthenticationEvents;
+
 
 /**
  * Class UserSubscriber
@@ -44,9 +50,43 @@ class UserSubscriber implements EventSubscriberInterface
     {
         return array(
             UserEvents::USER_FORM_AUTHENTICATION => array('onUserFormAuthentication', 0),
+            UserEvents::USER_PRE_AUTHENTICATION  => array('onUserSsoAuthentication', 0),
         );
     }
+    /**
+     * Authenticate via the form using users defined in LDAP server(s).
+     *
+     * @param AuthenticationEvent $event
+     *
+     * @return bool|void
+     */
+    public function onUserSsoAuthentication(AuthenticationEvent $event)
+    {
+        $username = $_SERVER['PHP_AUTH_USER'];
+        $password = $_SERVER['PHP_AUTH_PW'];
+        $integration = null;
+        $result = false;
+        if ($authenticatingService = $event->getAuthenticatingService()) {
+            if (in_array($authenticatingService, $this->supportedServices)
+                && $integration = $event->getIntegration($authenticatingService)) {
+                $result = $this->authenticateService($integration, $username, $password);
+            }
+        } else {
+            foreach ($this->supportedServices as $supportedService) {
+                if ($integration = $event->getIntegration($supportedService)) {
+                    $authenticatingService = $supportedService;
+                    $result = $this->authenticateService($integration, $username, $password);
+                    break;
+                }
+            }
+        }
 
+        if ($integration && $result instanceof User) {
+            $event->setIsAuthenticated($authenticatingService, $result, $integration->shouldAutoCreateNewUser());
+        } elseif ($result instanceof Response) {
+            $event->setResponse($result);
+        } // else do nothing
+    }
     /**
      * Authenticate via the form using users defined in LDAP server(s).
      *
