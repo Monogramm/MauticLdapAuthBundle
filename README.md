@@ -30,6 +30,8 @@ You can also edit manually your parameters in `local.php` (adapt to your LDAP co
         'ldap_auth_version' => 3,
         'ldap_auth_ssl' => false,
         'ldap_auth_starttls' => true,
+        'ldap_auth_bind_dn' => 'cn=admin,dc=ldap,dc=company,dc=com',
+        'ldap_auth_bind_passwd' => null,
         'ldap_auth_base_dn' => 'ou=People,dc=ldap,dc=mysupercompany,dc=com',
         'ldap_auth_user_query' => '(objectclass=inetOrgPerson)',
         'ldap_auth_username_attribute' => 'uid',
@@ -49,6 +51,8 @@ A sample configuration for Active Directory is
         'ldap_auth_port' => 389,
         'ldap_auth_version' => 3,
         'ldap_auth_ssl' => false,
+        'ldap_auth_bind_dn' => 'cn=admin,dc=ldap,dc=company,dc=com',
+        'ldap_auth_bind_passwd' => null,
         'ldap_auth_starttls' => false,
         'ldap_auth_base_dn' => 'cn=Users,dc=ad,dc=mysupercompany,dc=com',
         'ldap_auth_user_query' => '(objectclass=user)(memberof=marketing)',     // careful this can be case sensitive!
@@ -63,6 +67,13 @@ A sample configuration for Active Directory is
 ```
 
 Once the parameters are set, open a new browser and check connection through LDAP. **Do not log out until LDAP configuration is valid!**
+
+## Behind reverse proxy SSO Kerberos authenticated
+
+* Redirect to page /s/sso_login/LdapAuth
+* Create a special AD account to auto-create users from AD without binding (without password)
+* You can also disconnect and connect with a normal account from login page.
+* A button "Login with LDAP" has been added on the login form to re-connect with Sso credentials.
 
 ## Developments in progress
 
