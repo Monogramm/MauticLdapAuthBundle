@@ -20,6 +20,7 @@ use Mautic\UserBundle\Event\AuthenticationEvent;
 use Mautic\UserBundle\UserEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\AuthenticationEvents;
 
@@ -62,8 +63,9 @@ class UserSubscriber implements EventSubscriberInterface
      */
     public function onUserSsoAuthentication(AuthenticationEvent $event)
     {
-        $username = $_SERVER['PHP_AUTH_USER'];
-        $password = $_SERVER['PHP_AUTH_PW'];
+        $request = Request::createFromGlobals();
+        $username = $request->server->get('PHP_AUTH_USER');
+        $password = $request->server->get('PHP_AUTH_PW');
         $integration = null;
         $result = false;
         if ($authenticatingService = $event->getAuthenticatingService()) {
@@ -139,8 +141,8 @@ class UserSubscriber implements EventSubscriberInterface
             'starttls'      => $this->parametersHelper->getParameter('ldap_auth_starttls', true),
             'version'       => $this->parametersHelper->getParameter('ldap_auth_version', 3),
             // TODO Coming feature: Bind DN
-            //'bind_dn'       => $this->parametersHelper->getParameter('ldap_auth_bind_dn'),
-            //'bind_passwd'   => $this->parametersHelper->getParameter('ldap_auth_bind_passwd'),
+            'bind_dn'       => $this->parametersHelper->getParameter('ldap_auth_bind_dn'),
+            'bind_passwd'   => $this->parametersHelper->getParameter('ldap_auth_bind_passwd'),
             'base_dn'       => $this->parametersHelper->getParameter('ldap_auth_base_dn'),
             'user_query'    => $this->parametersHelper->getParameter('ldap_auth_user_query', ''),
             'is_ad'         => $this->parametersHelper->getParameter('ldap_auth_isactivedirectory', false),

@@ -4,9 +4,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 
 ## [Unreleased]
-
-## [1.2.0](https://github.com/enguerr/MauticLdapAuthBundle/releases/tag/1.2.0/) - 2020-04-10
-### Changed
 - Sso behind nginx proxy  
 - Auto login with /s/sso_login/LdapAuth
 - Button added on login screen to login with AD

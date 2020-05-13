@@ -15,9 +15,10 @@ namespace MauticPlugin\MauticLdapAuthBundle\Integration;
 
 use Mautic\PluginBundle\Integration\AbstractSsoFormIntegration;
 use Mautic\UserBundle\Entity\User;
-
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Ldap\LdapClient;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+
 
 /**
  * Class LdapAuthIntegration
@@ -100,7 +101,6 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
      */
     public function authCallback($settings = [], $parameters = [])
     {
-        //die('authcallback');
         $hostname = $settings['hostname'];
         $port = (int) $settings['port'];
         $ssl = (bool) $settings['ssl'];
@@ -146,27 +146,31 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
      */
     private function ldapUserLookup($ldap, $settings = [], $parameters = [])
     {
+        $request = Request::createFromGlobals();
         $base_dn = $settings['base_dn'];
         $userKey = $settings['user_key'];
         $query = $settings['user_query'];
         $is_ad = $settings['is_ad'];
+        $ldap_auth_bind_dn = $settings['bind_dn'];
+        $ldap_auth_bind_passwd = $settings['bind_passwd'];
         $ad_domain = $settings['ad_domain'];
         $basic_auth= false;
 
-        if (isset($_SERVER["PHP_AUTH_USER"]) && !empty($_SERVER["PHP_AUTH_USER"])) {
-            $basic_auth= true;
-            $login = $_SERVER["PHP_AUTH_USER"];
-        }else
+        if (!empty($request->server->get("PHP_AUTH_USER"))) {
+            $basic_auth = true;
+            $login = $request->server->get("PHP_AUTH_USER");
+        }else {
             $login = $parameters['login'];
+        }
         $password = $parameters['password'];
 
         try {
             if ($is_ad) {
-                if (!$basic_auth)
+                if (!$basic_auth) {
                     $dn = "$login@$ad_domain";
-                else{
-                    $dn = "cs-LDAPReader@$ad_domain";
-                    $password = "LDre2012";
+                }else{
+                    $dn = $ldap_auth_bind_dn;
+                    $password = $ldap_auth_bind_passwd;
                 }
             } else {
                 $dn = "$userKey=$login,$base_dn";

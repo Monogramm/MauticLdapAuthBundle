@@ -68,20 +68,18 @@ $keys = [
             <hr />
 
             <!-- TODO Coming feature: LDAP bind account and Group lookup -->
-            <!--
             <div class="alert alert-info"><?php
-                //echo $view['translator']->trans('mautic.integration.sso.ldapauth.config.form.ldap_authentication');
+                echo $view['translator']->trans('mautic.integration.sso.ldapauth.config.form.ldap_authentication');
             ?></div>
             <div class="row">
                 <div class="col-md-6">
-                    <?php //echo $view['form']->row($fields['ldap_auth_bind_dn']); ?>
+                    <?php echo $view['form']->row($fields['ldap_auth_bind_dn']); ?>
                 </div>
                 <div class="col-md-6">
-                    <?php //echo $view['form']->row($fields['ldap_auth_bind_passwd']); ?>
+                    <?php echo $view['form']->row($fields['ldap_auth_bind_passwd']); ?>
                 </div>
             </div>
             <hr />
-            -->
 
             <div class="alert alert-info"><?php
                 echo $view['translator']->trans('mautic.integration.sso.ldapauth.config.form.ldap_filters');
