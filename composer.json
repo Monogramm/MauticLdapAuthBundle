@@ -26,6 +26,25 @@
   "require-dev": {
       "phpspec/phpspec": "~2.1",
       "leanphp/phpspec-code-coverage": "~2.1",
-      "squizlabs/php_codesniffer": "~3.0"
+      "squizlabs/php_codesniffer": "~3.0",
+      "phpstan/phpstan": "^0.12.34",
+      "friendsofphp/php-cs-fixer": "^2.16"
+  },
+  "scripts": {
+      "auto-scripts": [
+          "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+          "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+          "php -r \"if(file_exists('./.git')&&file_exists('./build/hooks/pre-commit'.(PHP_OS=='WINNT'?'.win':''))){copy('./build/hooks/pre-commit'.(PHP_OS=='WINNT'?'.win':''),'./.git/hooks/pre-commit');}\"",
+          "php -r \"if(file_exists('./.git/hooks/pre-commit')&&(PHP_OS!='WINNT')){chmod('./.git/hooks/pre-commit',0755);}\""
+      ],
+      "post-install-cmd": [
+          "@auto-scripts"
+      ],
+      "post-update-cmd": [
+          "@auto-scripts"
+      ],
+      "phpstan": "bin/phpstan analyse app/bundles plugins",
+      "cs": "bin/php-cs-fixer fix -v --dry-run --diff",
+      "fixcs": "bin/php-cs-fixer fix -v"
   }
 }
