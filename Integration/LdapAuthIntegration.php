@@ -145,15 +145,15 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
 
         try {
             if ($is_ad) {
-                $dn = "$login@$ad_domain";
+                $user_dn = "$login@$ad_domain";
             } else {
-                $dn = "$userKey=$login,$base_dn";
+                $user_dn = "$userKey=$login,$base_dn";
             }
 
             $userquery = "$userKey=$login";
             $query     = "(&($userquery)$query)"; // original $query already has brackets!
 
-            $ldap->bind($dn, $password);
+            $ldap->bind($user_dn, $password);
             $response = $ldap->find($base_dn, $query);
             // If we reach this far, we expect to have found something
             // and join the settings to the response to retrieve user fields
