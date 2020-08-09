@@ -63,23 +63,23 @@ class UserSubscriber implements EventSubscriberInterface
 
         $integration = null;
         $result      = false;
-        if ($authenticatingService = $event->getAuthenticatingService()) {
-            if (in_array($authenticatingService, $this->supportedServices)
-                && $integration = $event->getIntegration($authenticatingService)) {
+        if ($authService = $event->getAuthenticatingService()) {
+            if (in_array($authService, $this->supportedServices)
+                && $integration = $event->getIntegration($authService)) {
                 $result = $this->authenticateService($integration, $username, $password);
             }
         } else {
             foreach ($this->supportedServices as $supportedService) {
                 if ($integration = $event->getIntegration($supportedService)) {
-                    $authenticatingService = $supportedService;
-                    $result                = $this->authenticateService($integration, $username, $password);
+                    $authService = $supportedService;
+                    $result      = $this->authenticateService($integration, $username, $password);
                     break;
                 }
             }
         }
 
         if ($integration && $result instanceof User) {
-            $event->setIsAuthenticated($authenticatingService, $result, $integration->shouldAutoCreateNewUser());
+            $event->setIsAuthenticated($authService, $result, $integration->shouldAutoCreateNewUser());
         } elseif ($result instanceof Response) {
             $event->setResponse($result);
         } // else do nothing
