@@ -43,7 +43,7 @@
       "post-update-cmd": [
           "@auto-scripts"
       ],
-      "phpstan": "vendor/bin/phpstan analyse app/bundles plugins",
+      "phpstan": "vendor/bin/phpstan analyse .",
       "cs": "vendor/bin/php-cs-fixer fix -v --dry-run --diff",
       "fixcs": "vendor/bin/php-cs-fixer fix -v"
   }
