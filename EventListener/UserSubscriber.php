@@ -1,9 +1,10 @@
 <?php
 /**
- * @package     Mautic
- * @copyright   2019 Monogramm. All rights reserved
+ * @copyright   2020 Monogramm. All rights reserved
  * @author      Monogramm
- * @link        https://www.monogramm.io
+ *
+ * @see         https://www.monogramm.io
+ *
  * @license     GNU/AGPLv3 http://www.gnu.org/licenses/agpl.html
  */
 
@@ -19,7 +20,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class UserSubscriber
+ * Class UserSubscriber.
  */
 class UserSubscriber implements EventSubscriberInterface
 {
@@ -28,9 +29,9 @@ class UserSubscriber implements EventSubscriberInterface
      */
     private $parametersHelper;
 
-    private $supportedServices = array(
+    private $supportedServices = [
         'LdapAuth',
-    );
+    ];
 
     public function __construct(CoreParametersHelper $parametersHelper)
     {
@@ -42,15 +43,15 @@ class UserSubscriber implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(
-            UserEvents::USER_FORM_AUTHENTICATION => array('onUserFormAuthentication', 0),
-        );
+        return [
+            UserEvents::USER_FORM_AUTHENTICATION => ['onUserFormAuthentication', 0],
+        ];
     }
 
     /**
      * Authenticate via the form using users defined in LDAP server(s).
      *
-     * @param AuthenticationEvent $event
+     * @param AuthenticationEvent $event Authentication event
      *
      * @return bool|void
      */
@@ -60,7 +61,7 @@ class UserSubscriber implements EventSubscriberInterface
         $password = $event->getToken()->getCredentials();
 
         $integration = null;
-        $result = false;
+        $result      = false;
         if ($authenticatingService = $event->getAuthenticatingService()) {
             if (in_array($authenticatingService, $this->supportedServices)
                 && $integration = $event->getIntegration($authenticatingService)) {
@@ -70,7 +71,7 @@ class UserSubscriber implements EventSubscriberInterface
             foreach ($this->supportedServices as $supportedService) {
                 if ($integration = $event->getIntegration($supportedService)) {
                     $authenticatingService = $supportedService;
-                    $result = $this->authenticateService($integration, $username, $password);
+                    $result                = $this->authenticateService($integration, $username, $password);
                     break;
                 }
             }
@@ -84,9 +85,9 @@ class UserSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param AbstractSsoFormIntegration $integration
-     * @param string                     $username
-     * @param string                     $password
+     * @param AbstractSsoFormIntegration $integration SSO integration to trigger authentication
+     * @param string                     $username    Username received
+     * @param string                     $password    Password received
      *
      * @return bool|RedirectResponse
      */

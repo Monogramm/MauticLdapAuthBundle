@@ -1,20 +1,20 @@
 <?php
 /**
- * @package     Mautic
- * @copyright   2019 Monogramm. All rights reserved
+ * @copyright   2020 Monogramm. All rights reserved
  * @author      Monogramm
- * @link        https://www.monogramm.io
+ *
+ * @see         https://www.monogramm.io
+ *
  * @license     GNU/AGPLv3 http://www.gnu.org/licenses/agpl.html
  */
-
 $fields    = $form->children;
 $fieldKeys = array_keys($fields);
-$keys = [
+$keys      = [
     'ldap_auth_host',
     'ldap_auth_username_attribute',
     'ldap_auth_email_attribute',
     'ldap_auth_firstname_attribute',
-    'ldap_auth_lastname_attribute'
+    'ldap_auth_lastname_attribute',
 ];
 ?>
 
@@ -53,7 +53,7 @@ $keys = [
                 <!--
                 <div class="col-md-6" id="ldapAuthTestButtonContainer">
                     <div class="button_container">
-                        <?php //echo $view['form']->widget($fields['ldap_auth_test_connection_button']); ?>
+                        <?php //echo $view['form']->widget($fields['ldap_auth_test_connection_button']);?>
                         <span class="fa fa-spinner fa-spin hide"></span>
                     </div>
                     <div class="col-md-9 help-block">
@@ -74,10 +74,10 @@ $keys = [
             ?></div>
             <div class="row">
                 <div class="col-md-6">
-                    <?php //echo $view['form']->row($fields['ldap_auth_bind_dn']); ?>
+                    <?php //echo $view['form']->row($fields['ldap_auth_bind_dn']);?>
                 </div>
                 <div class="col-md-6">
-                    <?php //echo $view['form']->row($fields['ldap_auth_bind_passwd']); ?>
+                    <?php //echo $view['form']->row($fields['ldap_auth_bind_passwd']);?>
                 </div>
             </div>
             <hr />
