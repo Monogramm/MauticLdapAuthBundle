@@ -4,7 +4,7 @@
  * @copyright   2021 Monogramm. All rights reserved
  * @author      Monogramm
  *
- * @link        https://www.monogramm.io
+ * @see         https://www.monogramm.io
  *
  * @license     GNU/AGPLv3 http://www.gnu.org/licenses/agpl.html
  */

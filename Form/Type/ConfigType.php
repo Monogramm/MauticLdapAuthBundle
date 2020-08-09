@@ -3,7 +3,9 @@
  * @package     Mautic
  * @copyright   2021 Monogramm. All rights reserved
  * @author      Monogramm
- * @link        https://www.monogramm.io
+ *
+ * @see         https://www.monogramm.io
+ *
  * @license     GNU/AGPLv3 http://www.gnu.org/licenses/agpl.html
  */
 
@@ -36,8 +38,8 @@ class ConfigType extends AbstractType
     /**
      * ConfigType constructor.
      *
-     * @param CoreParametersHelper $parametersHelper
-     * @param TranslatorInterface $translator
+     * @param CoreParametersHelper $parametersHelper Parameters help
+     * @param TranslatorInterface  $translator       Translator
      */
     public function __construct(CoreParametersHelper $parametersHelper, TranslatorInterface $translator)
     {
@@ -46,12 +48,11 @@ class ConfigType extends AbstractType
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param FormBuilderInterface $builder Configuration form builder
+     * @param array                $options Form data
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $builder->add(
             'ldap_auth_host',
             UrlType::class,
@@ -59,10 +60,10 @@ class ConfigType extends AbstractType
                 'label'      => 'mautic.integration.sso.ldapauth.config.form.host',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
-                    'class' => 'form-control',
+                    'class'   => 'form-control',
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.host.tooltip',
                 ],
-                'default_protocol' => 'ldap'
+                'default_protocol' => 'ldap',
             ]
         );
 
@@ -73,7 +74,7 @@ class ConfigType extends AbstractType
                 'label'      => 'mautic.integration.sso.ldapauth.config.form.port',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
-                    'class' => 'form-control',
+                    'class'   => 'form-control',
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.port.tooltip',
                 ],
                 'empty_data' => 389,
@@ -87,14 +88,14 @@ class ConfigType extends AbstractType
                 'label'      => 'mautic.integration.sso.ldapauth.config.form.ssl',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
-                    'class' => 'form-control',
+                    'class'   => 'form-control',
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.ssl.tooltip',
                 ],
                 'data' => isset($options['data']['ldap_auth_ssl']) ?
                     (bool) $options['data']['ldap_auth_ssl']
                     : (
                         isset($options['data']['ldap_auth_host']) ?
-                            substr($options['data']['ldap_auth_host'], 0, 8) === 'ldaps://'
+                            'ldaps://' === substr($options['data']['ldap_auth_host'], 0, 8)
                             : false
                     ),
                 'empty_data' => false,
@@ -107,7 +108,7 @@ class ConfigType extends AbstractType
                 'label'      => 'mautic.integration.sso.ldapauth.config.form.starttls',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
-                    'class' => 'form-control',
+                    'class'   => 'form-control',
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.starttls.tooltip',
                 ],
                 'data' => isset($options['data']['ldap_auth_starttls']) ?
@@ -124,11 +125,11 @@ class ConfigType extends AbstractType
                 'label'      => 'mautic.integration.sso.ldapauth.config.form.version',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
-                    'class' => 'form-control',
+                    'class'   => 'form-control',
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.version.tooltip',
                 ],
                 'empty_data' => 3,
-                'required' => false,
+                'required'   => false,
             ]
         );
 
@@ -215,7 +216,7 @@ class ConfigType extends AbstractType
                 'label'      => 'mautic.integration.sso.ldapauth.config.form.base_dn',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
-                    'class' => 'form-control',
+                    'class'   => 'form-control',
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.base_dn.tooltip',
                 ],
                 'empty_data' => null,
@@ -228,7 +229,7 @@ class ConfigType extends AbstractType
                 'label'      => 'mautic.integration.sso.ldapauth.config.form.user_query',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
-                    'class' => 'form-control',
+                    'class'   => 'form-control',
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.user_query.tooltip',
                 ],
                 'empty_data' => '(objectclass=inetOrgPerson)',
@@ -242,14 +243,14 @@ class ConfigType extends AbstractType
                 'label'      => 'mautic.integration.sso.ldapauth.config.form.isactivedirectory',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
-                    'class' => 'form-control',
+                    'class'   => 'form-control',
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.isactivedirectory.tooltip',
                 ],
                 'data' => isset($options['data']['ldap_auth_isactivedirectory']) ?
                     (bool) $options['data']['ldap_auth_isactivedirectory']
                     : false,
                 'empty_data' => false,
-                'required' => false,
+                'required'   => false,
             ]
         );
         $builder->add(
@@ -259,11 +260,11 @@ class ConfigType extends AbstractType
                 'label'      => 'mautic.integration.sso.ldapauth.config.form.activedirectory_domain',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
-                    'class' => 'form-control',
+                    'class'   => 'form-control',
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.activedirectory_domain.tooltip',
                 ],
                 'empty_data' => null,
-                'required' => false,
+                'required'   => false,
             ]
         );
 
@@ -274,7 +275,7 @@ class ConfigType extends AbstractType
                 'label'      => 'mautic.integration.sso.ldapauth.config.form.username_attribute',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
-                    'class' => 'form-control',
+                    'class'   => 'form-control',
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.username_attribute.tooltip',
                 ],
                 'empty_data' => 'uid',
@@ -288,7 +289,7 @@ class ConfigType extends AbstractType
                 'label'      => 'mautic.integration.sso.ldapauth.config.form.email_attribute',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
-                    'class' => 'form-control',
+                    'class'   => 'form-control',
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.email_attribute.tooltip',
                 ],
                 'empty_data' => 'mail',
@@ -302,7 +303,7 @@ class ConfigType extends AbstractType
                 'label'      => 'mautic.integration.sso.ldapauth.config.form.firstname_attribute',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
-                    'class' => 'form-control',
+                    'class'   => 'form-control',
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.firstname_attribute.tooltip',
                 ],
                 'empty_data' => 'givenname',
@@ -316,7 +317,7 @@ class ConfigType extends AbstractType
                 'label'      => 'mautic.integration.sso.ldapauth.config.form.lastname_attribute',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
-                    'class' => 'form-control',
+                    'class'   => 'form-control',
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.lastname_attribute.tooltip',
                 ],
                 'empty_data' => 'sn',
@@ -330,11 +331,11 @@ class ConfigType extends AbstractType
                 'label'      => 'mautic.integration.sso.ldapauth.config.form.fullname_attribute',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [
-                    'class' => 'form-control',
+                    'class'   => 'form-control',
                     'tooltip' => 'mautic.integration.sso.ldapauth.config.form.fullname_attribute.tooltip',
                 ],
                 'empty_data' => 'displayname',
-                'required' => false,
+                'required'   => false,
             ]
         );
     }

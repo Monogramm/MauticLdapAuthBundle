@@ -3,7 +3,9 @@
  * @package     Mautic
  * @copyright   2021 Monogramm. All rights reserved
  * @author      Monogramm
- * @link        https://www.monogramm.io
+ *
+ * @see         https://www.monogramm.io
+ *
  * @license     GNU/AGPLv3 http://www.gnu.org/licenses/agpl.html
  */
 
@@ -31,7 +33,7 @@ class ConfigSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param ConfigBuilderEvent $event
+     * @param ConfigBuilderEvent $event Config generation event
      */
     public function onConfigGenerate(ConfigBuilderEvent $event)
     {
@@ -46,14 +48,14 @@ class ConfigSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param ConfigEvent $event
+     * @param ConfigEvent $event Event on config saved
      */
     public function onConfigSave(ConfigEvent $event)
     {
         $data = $event->getConfig('ldapconfig');
 
         // Manipulate the values
-        if (!empty($data['ldap_auth_host']) && substr($data['ldap_auth_host'], 0, 8) === 'ldaps://') {
+        if (!empty($data['ldap_auth_host']) && 'ldaps://' === substr($data['ldap_auth_host'], 0, 8)) {
             $data['ldap_auth_ssl'] = true;
         }
 
