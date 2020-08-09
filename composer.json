@@ -43,8 +43,8 @@
       "post-update-cmd": [
           "@auto-scripts"
       ],
-      "phpstan": "bin/phpstan analyse app/bundles plugins",
-      "cs": "bin/php-cs-fixer fix -v --dry-run --diff",
-      "fixcs": "bin/php-cs-fixer fix -v"
+      "phpstan": "vendor/bin/phpstan analyse app/bundles plugins",
+      "cs": "vendor/bin/php-cs-fixer fix -v --dry-run --diff",
+      "fixcs": "vendor/bin/php-cs-fixer fix -v"
   }
 }
