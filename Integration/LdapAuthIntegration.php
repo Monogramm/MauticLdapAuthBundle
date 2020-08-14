@@ -11,8 +11,10 @@
 
 namespace MauticPlugin\MauticLdapAuthBundle\Integration;
 
+use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
 use Mautic\PluginBundle\Integration\AbstractSsoFormIntegration;
 use Mautic\UserBundle\Entity\User;
+use Mautic\UserBundle\Form\Type\RoleListType;
 use Symfony\Component\Ldap\LdapClient;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
@@ -112,7 +114,7 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
         }
 
         if (!empty($hostname) && !empty($parameters['login'])) {
-            $ldap = new LdapClient($hostname, $port, $ldapVersion, $ssl, $startTls);
+            $ldap = new LdapClient($hostname, $port, $ldapVersion, $ssl. $startTls);
 
             $response = $this->ldapUserLookup($ldap, $settings, $parameters);
 
@@ -125,9 +127,9 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
     /**
      * LDAP authentication and lookup user information.
      *
-     * @param \Symfony\Component\Ldap\LdapClient $ldap       LDAP client
-     * @param array                              $settings   LDAP connection settings
-     * @param array                              $parameters LDAP parameters
+     * @param LdapClient        $ldap       LDAP client
+     * @param array             $settings   LDAP connection settings
+     * @param array             $parameters LDAP parameters
      *
      * @return array array containing the LDAP lookup results or error message(s)
      *
@@ -164,7 +166,7 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
         } catch (\Exception $e) {
             $response = [
                 'errors' => [
-                    $this->factory->getTranslator()->trans(
+                    $this->getTranslator()->trans(
                         'mautic.integration.sso.ldapauth.error.authentication_issue',
                         [],
                         'flashes'
@@ -202,7 +204,7 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
 
         $error = $this->getErrorsFromResponse($data);
         if (empty($error)) {
-            $error = $this->factory->getTranslator()->trans(
+            $error = $this->getTranslator()->trans(
                 'mautic.integration.error.genericerror',
                 [],
                 'flashes'
@@ -312,7 +314,7 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
         if ('features' == $formArea) {
             $builder->add(
                 'auth_fallback',
-                'yesno_button_group',
+                YesNoButtonGroupType::class,
                 [
                     'label' => 'mautic.integration.sso.ldapauth.auth_fallback',
                     'data'  => (isset($data['auth_fallback'])) ? (bool) $data['auth_fallback'] : true,
@@ -324,7 +326,7 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
 
             $builder->add(
                 'auto_create_user',
-                'yesno_button_group',
+                YesNoButtonGroupType::class,
                 [
                     'label' => 'mautic.integration.sso.auto_create_user',
                     'data'  => (isset($data['auto_create_user'])) ? (bool) $data['auto_create_user'] : false,
@@ -336,7 +338,7 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
 
             $builder->add(
                 'new_user_role',
-                'role_list',
+                RoleListType::class,
                 [
                     'label'      => 'mautic.integration.sso.new_user_role',
                     'label_attr' => ['class' => 'control-label'],
