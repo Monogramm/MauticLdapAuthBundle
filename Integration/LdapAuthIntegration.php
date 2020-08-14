@@ -114,7 +114,7 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
         }
 
         if (!empty($hostname) && !empty($parameters['login'])) {
-            $ldap = new LdapClient($hostname, $port, $ldapVersion, $ssl. $startTls);
+            $ldap = new LdapClient($hostname, $port, $ldapVersion, $ssl, $startTls);
 
             $response = $this->ldapUserLookup($ldap, $settings, $parameters);
 
