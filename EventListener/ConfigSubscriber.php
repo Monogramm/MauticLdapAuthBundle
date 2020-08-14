@@ -13,6 +13,7 @@ namespace MauticPlugin\MauticLdapAuthBundle\EventListener;
 use Mautic\ConfigBundle\ConfigEvents;
 use Mautic\ConfigBundle\Event\ConfigBuilderEvent;
 use Mautic\ConfigBundle\Event\ConfigEvent;
+use MauticPlugin\MauticLdapAuthBundle\Form\Type\ConfigType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -41,6 +42,7 @@ class ConfigSubscriber implements EventSubscriberInterface
                 'bundle'     => 'MauticLdapAuthBundle',
                 'formAlias'  => 'ldapconfig',
                 'formTheme'  => 'MauticLdapAuthBundle:FormTheme\Config',
+                'formType'   => ConfigType::class,
                 'parameters' => $event->getParametersFromConfig('MauticLdapAuthBundle'),
             ]
         );
