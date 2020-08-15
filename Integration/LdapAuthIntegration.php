@@ -126,9 +126,9 @@ class LdapAuthIntegration extends AbstractSsoFormIntegration
     /**
      * LDAP authentication and lookup user information.
      *
-     * @param LdapClient        $ldap       LDAP client
-     * @param array             $settings   LDAP connection settings
-     * @param array             $parameters LDAP parameters
+     * @param LdapClient $ldap       LDAP client
+     * @param array      $settings   LDAP connection settings
+     * @param array      $parameters LDAP parameters
      *
      * @return array array containing the LDAP lookup results or error message(s)
      *
