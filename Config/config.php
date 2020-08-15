@@ -29,7 +29,7 @@ return [
         ],
         'integrations' => [
             'mautic.integration.ldapauth' => [
-                'class' => \MauticPlugin\MauticLdapAuthBundle\Integration\LdapAuthIntegration::class,
+                'class'     => \MauticPlugin\MauticLdapAuthBundle\Integration\LdapAuthIntegration::class,
                 'arguments' => [
                     'event_dispatcher',
                     'mautic.helper.cache_storage',
