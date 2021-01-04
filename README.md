@@ -19,7 +19,13 @@ Execute `composer require monogramm/mautic-ldap-auth-bundle` in the main directo
 ## Configuration
 Navigate to the Plugins page and click "Install/Upgrade Plugins". You should now see a "LDAP Auth" plugin.
 
-After activating the plugin, you can now go to "Configuration > LDAP Settings" to edit the parameters.
+-   ![LDAP Auth Plugin](docs/mautic_ldap_plugins_01.png)
+-   ![LDAP Auth Plugin - Published](docs/mautic_ldap_plugins_02.png)
+-   ![LDAP Auth Plugin - Features](docs/mautic_ldap_plugins_03.png)
+
+After activating the plugin, you can now go to "Configuration > LDAP Settings" to edit the parameters:
+
+![LDAP Settings](docs/mautic_ldap_settings_02.png)
 
 You can also edit manually your parameters in `local.php` (adapt to your LDAP configuration):
 ```php
