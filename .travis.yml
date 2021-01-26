@@ -1,19 +1,18 @@
-language: php
+os: linux
+dist: bionic
 
-sudo: false
+language: php
 
 cache:
   directories:
     - $HOME/.composer/cache
 
 php:
-  - 5.6
-  - 7.0
-  - 7.1
   - 7.2
+  - 7.3
   - hhvm
 
-matrix:
+jobs:
   allow_failures:
     - php: hhvm
 
@@ -30,8 +29,11 @@ script:
   # Code style
   - php vendor/bin/phpcs ./Config/ ./EventListener/ ./Form ./Integration/ ./Views/ --standard=PSR1 --encoding=utf-8 --report=summary
   - php vendor/bin/phpcs ./Config/ ./EventListener/ ./Form ./Integration/ ./Views/ --standard=PSR2 --encoding=utf-8 --report=summary
+  - vendor/bin/php-cs-fixer fix --config=.php_cs -v --dry-run --using-cache=no --show-progress=dots --diff $(git diff -- '*.php' --name-only --diff-filter=ACMRTUXB "${TRAVIS_COMMIT_RANGE}")
+  # Disabled PHPSTAN because it won't find Mautic classes in typehints
+  #- composer phpstan
 
 after_success:
-  # Send cover
+  # Send coverage
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover ./coverage.xml
