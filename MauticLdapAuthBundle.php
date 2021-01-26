@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     Mautic
- * @copyright   2019 Monogramm. All rights reserved
+ * @copyright   2021 Monogramm. All rights reserved
  * @author      Monogramm
  *
  * @link        https://www.monogramm.io
