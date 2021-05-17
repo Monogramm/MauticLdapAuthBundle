@@ -6,3 +6,5 @@ composer.lock
 composer.phar
 coverage.xml
 coveralls-upload.json
+/.idea/
+
